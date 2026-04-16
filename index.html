@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List - HTML e CSS</title>
+  <style>
+    :root {
+      --bg: #f1f4fb;
+      --card: #ffffff;
+      --border: #dfe3f2;
+      --text: #1f2a44;
+      --high: #e74c3c;
+      --medium: #f39c12;
+      --low: #2ecc71;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top left, #e9efff 0%, transparent 40%),
+                  radial-gradient(circle at bottom right, #ffe9e4 0%, transparent 35%),
+                  var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .container {
+      width: min(700px, 100%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(31, 42, 68, 0.12);
+      padding: 32px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .header p {
+      margin: 10px auto 0;
+      max-width: 520px;
+      color: #5a647a;
+      line-height: 1.6;
+    }
+
+    .task-form {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr 160px 120px;
+      margin-bottom: 28px;
+    }
+
+    .task-form input,
+    .task-form select,
+    .task-form button {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .task-form input {
+      background: #fbfcff;
+    }
+
+    .task-form select {
+      background: #fbfcff;
+      appearance: none;
+    }
+
+    .task-form button {
+      background: #3d5afe;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .task-form button:hover {
+      background: #2e45d1;
+      transform: translateY(-1px);
+    }
+
+    .task-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .task {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      border: 1px solid #e5e9f6;
+      background: #fdfdff;
+    }
+
+    .task input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #3d5afe;
+      cursor: pointer;
+    }
+
+    .task-content {
+      display: grid;
+    }
+
+    .task-content label {
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .task .priority {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .task-high {
+      border-left: 6px solid var(--high);
+    }
+
+    .task-medium {
+      border-left: 6px solid var(--medium);
+    }
+
+    .task-low {
+      border-left: 6px solid var(--low);
+    }
+
+    .task-high .priority {
+      background: rgba(231, 76, 60, 0.12);
+      color: var(--high);
+    }
+
+    .task-medium .priority {
+      background: rgba(243, 156, 18, 0.14);
+      color: var(--medium);
+    }
+
+    .task-low .priority {
+      background: rgba(46, 204, 113, 0.14);
+      color: var(--low);
+    }
+
+    .task input[type="checkbox"]:checked + .task-content label {
+      text-decoration: line-through;
+      color: #8a92a3;
+    }
+
+    .task input[type="checkbox"]:checked + .task-content + .priority {
+      opacity: 0.5;
+    }
+
+    @media (max-width: 640px) {
+      .task-form {
+        grid-template-columns: 1fr;
+      }
+
+      .task {
+        grid-template-columns: auto 1fr;
+      }
+
+      .task .priority {
+        justify-self: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>To-Do List</h1>
+      <p>Use o campo abaixo para criar tarefas e veja como a prioridade muda a cor de cada item.</p>
+    </div>
+
+    <form class="task-form" action="#" onsubmit="return false;">
+      <input type="text" placeholder="Digite a descrição da tarefa" aria-label="Descrição da tarefa">
+      <select aria-label="Prioridade da tarefa">
+        <option value="high">Alta</option>
+        <option value="medium">Média</option>
+        <option value="low">Baixa</option>
+      </select>
+      <button type="submit">Adicionar</button>
+    </form>
+
+    <ul class="task-list">
+      <li class="task task-high">
+        <input id="task-1" type="checkbox">
+        <div class="task-content">
+          <label for="task-1">Estudar para prova de cálculo</label>
+        </div>
+        <span class="priority">Alta</span>
+      </li>
+
+      <li class="task task-medium">
+        <input id="task-2" type="checkbox">
+        <div class="task-content">
+          <label for="task-2">Fazer exercícios de programação</label>
+        </div>
+        <span class="priority">Média</span>
+      </li>
+
+      <li class="task task-low">
+        <input id="task-3" type="checkbox">
+        <div class="task-content">
+          <label for="task-3">Ler material complementar</label>
+        </div>
+        <span class="priority">Baixa</span>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
